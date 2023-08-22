@@ -84,6 +84,27 @@ if __name__ == "__main__":
 
     car_sim = CarSimulator(start_pos=10, start_vel=2, t_step_s=0.5, max_pos_error=2)
 
+    X_init_nx1 = np.array([[25.0, 1.0]]).T  # state means
+    P_init_nxn = np.array([[100., 0],
+                           [0, 25.]])  # we expect state to be wrong by as much as +-10 and vel. by +- 5
+    
+    dt = 0.5  # same as used in simulation
+    F_nxn = np.array([[1, dt],
+                      [0, 1]])
+    
+    Q_init_nxn = np.array([[0.5, 0.],
+                           [0., 0.05]])  # small process noise
+    
+    H_1xn = np.array([[1, 0]])  # meas. matrix/ function -> maps state to meas
+
+    R_nxn = np.array([[4., 0.],
+                      [0., 4.]])
+    
+    kalman_filter = KalmanFilter2D(X_init_nx1=X_init_nx1, P_init_nxn=P_init_nxn, F_nxn=F_nxn, Q_init_nxn=Q_init_nxn, 
+                                   R_nxn=R_nxn, H_1xn=H_1xn)
+    
+    kalman_filter.print_filter_params()
+
     gt_pos = []
     meas_pos = []
     gt_vel = []
