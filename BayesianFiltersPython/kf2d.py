@@ -4,6 +4,7 @@ Implements a KF filter in 2D to track position and velocity over certain time st
 
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.linalg import inv
 
 class CarSimulator(object):
     """
@@ -70,35 +71,45 @@ class KalmanFilter2D(object):
         Predict next state and cov. based on previous state and motion model/ state transition matrix
         """
 
-        pass
+        self.X_nx1 = np.dot(self.F_nxn, self.X_nx1) + 0  # we have considered u = 0 here
+        self.P_nxn = np.dot(self.F_nxn, np.dot(self.P_nxn, self.F_nxn.T)) + self.Q_nxn
+        return self.X_nx1, self.P_nxn
 
     def update(self, meas_pos):
         """
         Update predicted states and covariances using new measurements
         """
-        pass
+        
+
+        self.S = np.dot( np.dot(self.H_1xn, self.P_nxn), self.H_1xn.T ) + self.R_nxn  # HPH' + R
+        self.K = np.dot( np.dot(self.P_nxn, self.H_1xn.T), inv(self.S) )
+        y = meas_pos - np.dot(self.H_1xn, self.X_nx1)
+        self.X_nx1 += np.dot(self.K, y)
+        self.P_nxn = self.P_nxn - np.dot( np.dot(self.K, self.H_1xn), self.P_nxn)
+
+        return self.X_nx1, self.P_nxn
+
 
 
 
 if __name__ == "__main__":
 
-    car_sim = CarSimulator(start_pos=10, start_vel=2, t_step_s=0.5, max_pos_error=2)
+    car_sim = CarSimulator(start_pos=10, start_vel=2, t_step_s=0.5, max_pos_error=4)
 
-    X_init_nx1 = np.array([[25.0, 1.0]]).T  # state means
-    P_init_nxn = np.array([[100., 0],
+    X_init_nx1 = np.array([[-25.0, 1.0]]).T  # state means
+    P_init_nxn = np.array([[400., 0],
                            [0, 25.]])  # we expect state to be wrong by as much as +-10 and vel. by +- 5
     
     dt = 0.5  # same as used in simulation
-    F_nxn = np.array([[1, dt],
-                      [0, 1]])
+    F_nxn = np.array([[1., dt],
+                      [0, 1.]])
     
-    Q_init_nxn = np.array([[0.5, 0.],
-                           [0., 0.05]])  # small process noise
+    Q_init_nxn = np.array([[0.05, 0.],
+                           [0., 0.01]])  # small process noise
     
-    H_1xn = np.array([[1, 0]])  # meas. matrix/ function -> maps state to meas
+    H_1xn = np.array([[1., 0.]])  # meas. matrix/ function -> maps state to meas
 
-    R_nxn = np.array([[4., 0.],
-                      [0., 4.]])
+    R_nxn = np.array([[9.]])  # we measure position only
     
     kalman_filter = KalmanFilter2D(X_init_nx1=X_init_nx1, P_init_nxn=P_init_nxn, F_nxn=F_nxn, Q_init_nxn=Q_init_nxn, 
                                    R_nxn=R_nxn, H_1xn=H_1xn)
@@ -108,14 +119,24 @@ if __name__ == "__main__":
     gt_pos = []
     meas_pos = []
     gt_vel = []
+    kf_pos = []
+    kf_vel = []
     for i in range(100):
         pos_gt, pos_meas, vel_gt = car_sim.get_sim_data()
+
+        pos_vel, cov = kalman_filter.predict()
+        print("Covariance predict -> ", cov)
+        pos_vel, cov = kalman_filter.update(pos_meas)
+        print("Covariance update -> ", cov)
 
         gt_pos.append(pos_gt)
         meas_pos.append(pos_meas)
         gt_vel.append(vel_gt)
+        kf_pos.append(pos_vel[0])
+        kf_vel.append(pos_vel[1])
 
     plt.plot(gt_pos, "g-")
+    plt.plot(kf_pos, "c--")
     plt.plot(meas_pos, "b*")
     plt.plot(gt_vel, "r")
     plt.show()
