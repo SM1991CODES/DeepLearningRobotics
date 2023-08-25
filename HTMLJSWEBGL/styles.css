@@ -1,0 +1,22 @@
+body
+{
+    background-color: aquamarine;
+    font: italic;
+    text-align: center;
+}
+
+h1
+{
+    color: darkred;
+}
+
+h2
+{
+    color: blueviolet;
+}
+
+p{
+    color: slateblue;
+    font-style: italic;
+    font-family: "Ubuntu Mono";
+}
