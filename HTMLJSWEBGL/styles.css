@@ -19,4 +19,23 @@ p{
     color: slateblue;
     font-style: italic;
     font-family: "Ubuntu Mono";
+    border: 2px solid saddlebrown;
+    padding: 20px; /* space between border and text */
+    margin: 50px;  /* space outside border */
+}
+
+/* defines link color changes based on activity status */
+a:link
+{
+    color: green;
+}
+
+a:hover
+{
+    color: deeppink;
+}
+
+a:visited
+{
+    color: blueviolet;
 }
