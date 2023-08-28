@@ -128,3 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 opencl/HelloOpenCL
+.vscode/settings.json
