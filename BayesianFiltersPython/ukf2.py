@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 from filterpy.kalman import UnscentedKalmanFilter as UKF
 from filterpy.kalman import unscented_transform, MerweScaledSigmaPoints
 from filterpy.common import Q_discrete_white_noise
-
+import math
 
 class AirSim(object):
     """
@@ -70,10 +70,11 @@ class AirSim(object):
 
         self.pos = self.pos + self.dt * self.vel
         
-        if self.sim_steps > 50:
-            self.height = self.height + self.dt * self.climb_rate
-        else:
-            self.height = 0
+        self.height = self.height + self.dt * self.climb_rate
+        # if self.sim_steps > 50:
+        #     self.height = self.height + self.dt * self.climb_rate
+        # else:
+        #     self.height = 0
 
         # add noise to simulate noisy measurement with radar
         noise_pos = np.random.uniform(-3, 3)
@@ -97,7 +98,7 @@ def f_radar(x, dt):
     F = np.array([[1, dt, 0, 0],
                   [0, 1, 0, 0],
                   [0, 0, 1, dt],
-                  [0, 0, 0, 1]])
+                  [0, 0, 0, 1]], dtype=float)
     return np.dot(F, x)
 
 
@@ -110,8 +111,8 @@ def h_radar(x):
     radar_pos = 0
     radar_height = 0
     pos, height = x[0], x[2]
-    r = np.sqrt( (pos - radar_pos)**2  + (height - radar_height) ** 2)
-    ele = np.arctan2( (height - radar_height), (pos - radar_pos))
+    r = math.sqrt( (pos - radar_pos) ** 2  + (height - radar_height) ** 2)
+    ele = math.atan2( (height - radar_height), (pos - radar_pos))
     return np.array([r, ele])
 
 
@@ -134,10 +135,10 @@ if __name__ == "__main__":
     #                  [0, 0, 0, 0.00001]])
     kf.Q[0:2, 0:2] = Q_discrete_white_noise(2, dt=dt, var=0.1)
     kf.Q[2:4, 2:4] = Q_discrete_white_noise(2, dt=dt, var=0.1)
-    kf.P = np.array([[200**2, 0, 0, 0],
-                     [0, 9, 0, 0],
-                     [0, 0, 150**2, 0],
-                     [0, 0, 0, 9]])
+    # kf.P = np.array([[200**2, 0, 0, 0],
+    #                  [0, 9, 0, 0],
+    #                  [0, 0, 150**2, 0],
+    #                  [0, 0, 0, 9]])
     
     # =========================================================================================== #
     
@@ -148,7 +149,7 @@ if __name__ == "__main__":
     meas_ele = []
     filt_pos = []
     filt_height = []
-    airsim = AirSim(init_pos_x=0, init_vel_x=15, init_height_y=20000, init_height_change=200, time_step_s=0.5)
+    airsim = AirSim(init_pos_x=0, init_vel_x=100, init_height_y=1000., init_height_change=200, time_step_s=0.5)
     for t in range(100):
         pos_gt, height_gt, range_meas, ele_meas = airsim.get_simulation_data()
         
