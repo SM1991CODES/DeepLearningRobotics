@@ -4,6 +4,9 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
+# from tensorflow import keras as keras
+# import keras
+# from keras.layers import Input, Dense, Conv2D
 
 def show_subplots(fig_list=None, labels=None, direction='h'):
     """
