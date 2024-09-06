@@ -131,3 +131,4 @@ opencl/HelloOpenCL
 .vscode/settings.json
 .vscode/launch.json
 /.vs
+/basics/.vs
