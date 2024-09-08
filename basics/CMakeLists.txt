@@ -12,7 +12,7 @@ endif()
 project ("basics")
 
 # Add source to this project's executable.
-add_executable (basics "basics.cpp" "basics.h")
+add_executable (basics "basics.cpp" "basics.h" "chapter3.cpp" "chapter3.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET basics PROPERTY CXX_STANDARD 20)

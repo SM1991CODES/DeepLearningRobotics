@@ -7,6 +7,11 @@
 
 using namespace std;
 
+void chapter3_functions_and_classes()
+{
+
+}
+
 int main()
 {
 	cout << "Welcome to learning C++" << endl;
@@ -35,6 +40,32 @@ int main()
 	cout << msg << endl;
 	cout << sizeof(msg) << endl;
 	cout << strlen((const char*)msg) << endl;
+
+	// displaying hex in C++
+	cout << "hex of 255 = " << hex << 255 << endl; // no need to call hex(255)
+
+	// scientific notation
+	float c_mps = 3E8F;  // 10^8
+	cout << "Speed of light -> " << c_mps << endl;
+
+	// strings are always \0 terminated, so actual length to store is strlen() + 1
+
+	// variable init - both below are ok. All global vars are default init to 0, but locals have undefined value
+	float x(3.14);
+	unsigned long int d = 5UL;
+	cout << x << endl << d << endl;
+
+	// constants are readonly variables - must be initialized at creation and cannot be modified later
+	const float PI = 3.14f;
+	cout << "PI = " << PI << endl;
+
+	// volatiles variables can be modified later by the program and from other programs and sources, e.g., clocks, interrupts etc
+	volatile int regx = 0xFA;
+	cout << "regx = 0x" << hex << regx << endl;
+
+	// const valoatile vars cannot be changed by the program but by other sources
+	volatile const int regy = 0xAA;
+	cout << "regy = 0x" << hex << regy << endl;
 
 	return 0;
 }
