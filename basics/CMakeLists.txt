@@ -11,8 +11,11 @@ endif()
 
 project ("basics")
 
+include_directories(includes)
+
 # Add source to this project's executable.
-add_executable (basics "basics.cpp" "basics.h" "chapter3.cpp" "chapter3.h")
+# add_executable (basics "basics.cpp" "basics.h" "chapter3.cpp" "chapter3.h")
+add_executable(basics src/basics.cpp src/chapter3.cpp)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET basics PROPERTY CXX_STANDARD 20)

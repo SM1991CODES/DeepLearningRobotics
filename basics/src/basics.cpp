@@ -7,10 +7,6 @@
 
 using namespace std;
 
-void chapter3_functions_and_classes()
-{
-
-}
 
 int main()
 {
@@ -66,6 +62,8 @@ int main()
 	// const valoatile vars cannot be changed by the program but by other sources
 	volatile const int regy = 0xAA;
 	cout << "regy = 0x" << hex << regy << endl;
+
+	chapter3();
 
 	return 0;
 }
