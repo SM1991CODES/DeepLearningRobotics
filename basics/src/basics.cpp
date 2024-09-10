@@ -61,7 +61,8 @@ int main()
 
 	// const valoatile vars cannot be changed by the program but by other sources
 	volatile const int regy = 0xAA;
-	cout << "regy = 0x" << hex << regy << endl;
+	cout << "regy = 0x" << hex << regy << endl; // NOTE: the hex form stays in effect till changed
+	cout << dec << endl;
 
 	chapter3();
 
