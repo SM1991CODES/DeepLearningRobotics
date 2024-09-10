@@ -7,6 +7,29 @@
 
 using namespace std;
 
+// NOTE: inline functions must be defined in the same file where they are called
+inline float inline_math(float a, float b, char op)
+{
+    switch (op)
+    {
+    case '+':
+        return(a + b);
+        /* code */
+        break;
+
+    case '-':
+        return (a - b);
+        break;
+
+    case '*':
+        return (a*b);
+        break;
+    
+    default:
+		return -1;
+        break;
+    }
+}
 
 int main()
 {
@@ -65,6 +88,8 @@ int main()
 	cout << dec << endl;
 
 	chapter3();
+	//
+	cout << inline_math(5, 9, '*') << endl;
 
 	return 0;
 }

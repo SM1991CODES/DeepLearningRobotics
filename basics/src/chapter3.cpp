@@ -39,5 +39,4 @@ void chapter3()
     }
     //
     cout << SPECIAL_SUM(5, 7) << endl;
-
 }
