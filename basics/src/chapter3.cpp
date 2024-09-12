@@ -7,6 +7,8 @@
 
 using namespace std;
 
+float constant_speed = 45.56f;
+
 void chapter3()
 {
     // string operations
@@ -39,4 +41,7 @@ void chapter3()
     }
     //
     cout << SPECIAL_SUM(5, 7) << endl;
+    //
+    float &cs = constant_speed;
+    cs -= 0.5;
 }

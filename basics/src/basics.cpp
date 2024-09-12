@@ -6,6 +6,8 @@
 #define BOOK_NAME	"A Complete Guide to Programming in C++"
 
 using namespace std;
+extern float constant_speed;
+
 
 // NOTE: inline functions must be defined in the same file where they are called
 inline float inline_math(float a, float b, char op)
@@ -90,6 +92,8 @@ int main()
 	chapter3();
 	//
 	cout << inline_math(5, 9, '*') << endl;
+	//
+	cout << "Value of extern variable constant_speed = " << constant_speed << endl;
 
 	return 0;
 }
