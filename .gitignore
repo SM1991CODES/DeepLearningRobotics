@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+*.Identifier
+
 # Distribution / packaging
 .Python
 build/
@@ -130,3 +132,4 @@ dmypy.json
 opencl/HelloOpenCL
 .vscode/settings.json
 .vscode/launch.json
+CS224W-Colab 4.ipynb:Zone.Identifier
