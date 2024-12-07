@@ -53,3 +53,33 @@ title("Cos wave");
 xlabel("t(ms)");
 ylabel("cos");
 axis padded
+
+% plot exp(x) and log(x) for x = [0, 3.5]
+x_vals = 0:0.5:3.5;
+exp_x = exp(x);
+log_x = log(x);
+plot(exp_x, "ko-");
+hold on
+plot(log_x, "g.--");
+hold off
+
+% file save and load for data and text format
+% saving and loading generally happends for matrix type data
+% should have same number of rows and cols
+t = 0 : ts: T;
+sinex = sin(2*pi*F*t);
+t_sinet = [t; sinex];  % concat along columns
+disp(size(t_sinet));
+
+save sine_data.dat t_sinet -ascii; % ascii marks text file, this is write mode
+
+% read a file and load values
+sines = load("sine_data.dat");
+disp(sines)
+
+% append cos values to the file above
+coses = cos(2*pi*F*t);
+save sine_data.dat coses -ascii -append;
+
+file_data = load("sine_data.dat");
+disp(file_data);

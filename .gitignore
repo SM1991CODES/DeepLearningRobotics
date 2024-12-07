@@ -130,3 +130,5 @@ dmypy.json
 opencl/HelloOpenCL
 .vscode/settings.json
 .vscode/launch.json
+sine_data.dat
+sine_data.data
