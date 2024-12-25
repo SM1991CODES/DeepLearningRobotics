@@ -132,3 +132,4 @@ opencl/HelloOpenCL
 .vscode/launch.json
 sine_data.dat
 sine_data.data
+/*.asv
