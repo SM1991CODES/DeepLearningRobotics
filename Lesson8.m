@@ -60,6 +60,7 @@ else
     disp("Age is not a field")
 end
 
+% getting available field names 
 fnames = fieldnames(mystruct1)
 
 % fieldnames can also be enterd dynamically
@@ -71,3 +72,19 @@ if isfield(mystruct1, fname)
 else
     disp("Given field is not in struct")
 end
+
+% creating a vector of structures
+sv = struct(x=12, y=3, z=5)  % this is assigned to (1)
+sv(2).x = 11  % this automatically extends the struct
+sv(2).y = 11
+sv(2).z = 10
+
+sv(3) = struct(x=15, y=15, z=0.45)  % another way of extending the struct
+
+% accessing one structure element
+el1 = sv(2);
+disp(el1);
+
+% accessing one field for all elements of the struct vector
+xs = [sv.x];  % all x-values, the [] are important to hold all x
+disp(xs)
