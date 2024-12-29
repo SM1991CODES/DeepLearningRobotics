@@ -88,3 +88,20 @@ disp(el1);
 % accessing one field for all elements of the struct vector
 xs = [sv.x];  % all x-values, the [] are important to hold all x
 disp(xs)
+
+% a vector of structs where some fields are vectors
+% each element has name, age and scores in 5 subjects as a vector
+str1 = struct(name="sambit", age=33, scores=[1, 2, 3, 4, 5]);
+str1(2) = struct(name="ads", age=34, scores=5:10);
+disp(str1);
+disp(str1(2).scores(:))
+
+
+gt_mnist = [1, 1, 1, 0, 0, 2, 3, 4, 0, 2, 3, 1, 2, 4, 4]
+categorical(gt_mnist)
+
+num_unique = length(unique(gt_mnist))
+
+one_hots = zeros(length(gt_mnist), num_unique);
+
+one_hots(1:length(gt_mnist), gt_mnist+1) = 1
