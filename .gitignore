@@ -133,3 +133,5 @@ opencl/HelloOpenCL
 .vscode/settings.json
 .vscode/launch.json
 CS224W-Colab 4.ipynb:Zone.Identifier
+.gradio/certificate.pem
+writerapp/storage/data/.gitkeep
